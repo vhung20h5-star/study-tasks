@@ -12,11 +12,16 @@
 <body>
   <main class="app">
     <header class="page-header">
-      <div class="brand-mark" aria-hidden="true">✓</div>
-      <div>
-        <p class="eyebrow">VIỆC HỌC MỖI NGÀY</p>
-        <h1>Study Tasks<span aria-hidden="true">.</span></h1>
+      <div class="brand">
+        <div class="brand-mark" aria-hidden="true">✓</div>
+        <div>
+          <p class="eyebrow">VIỆC HỌC MỖI NGÀY</p>
+          <h1>Study Tasks<span aria-hidden="true">.</span></h1>
+        </div>
       </div>
+      <button id="theme-toggle" class="theme-toggle" type="button" aria-pressed="false" title="Chuyển sang giao diện tối">
+        <span id="theme-icon" aria-hidden="true">☾</span> Giao diện tối
+      </button>
     </header>
     <p class="intro">Từng việc nhỏ, thêm một bước tiến.</p>
 
@@ -67,6 +72,7 @@
     </section>
 
     <p id="storage-warning" class="storage-warning" role="alert" hidden></p>
+    <p id="theme-warning" class="storage-warning" role="status" hidden></p>
     <footer>Dữ liệu lưu trên trình duyệt này <span aria-hidden="true">·</span> Học theo nhịp của bạn</footer>
     <noscript><p class="storage-warning">Vui lòng bật JavaScript để sử dụng Study Tasks.</p></noscript>
   </main>
