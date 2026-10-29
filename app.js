@@ -1,6 +1,56 @@
 (() => {
   "use strict";
 
+  const THEME_STORAGE_KEY = "study-tasks.theme";
+  const themeToggle = document.getElementById("theme-toggle");
+  const themeWarning = document.getElementById("theme-warning");
+  const systemTheme = typeof window.matchMedia === "function"
+    ? window.matchMedia("(prefers-color-scheme: dark)") : null;
+  let themePreference = null;
+
+  try {
+    const savedTheme = localStorage.getItem(THEME_STORAGE_KEY);
+    if (savedTheme === "light" || savedTheme === "dark") {
+      themePreference = savedTheme;
+    }
+  } catch {
+    // Fall back to the system theme when browser storage is unavailable.
+  }
+
+  function applyTheme() {
+    const theme = themePreference || (systemTheme?.matches ? "dark" : "light");
+    const isDark = theme === "dark";
+    document.documentElement.dataset.theme = theme;
+    themeToggle.setAttribute("aria-pressed", String(isDark));
+    themeToggle.title = isDark ? "Chuyển sang giao diện sáng" : "Chuyển sang giao diện tối";
+    document.getElementById("theme-icon").textContent = isDark ? "☾" : "☀";
+  }
+
+  themeToggle.addEventListener("click", () => {
+    themePreference = document.documentElement.dataset.theme === "dark" ? "light" : "dark";
+    applyTheme();
+    try {
+      localStorage.setItem(THEME_STORAGE_KEY, themePreference);
+      themeWarning.hidden = true;
+    } catch {
+      themeWarning.textContent = "Chưa lưu được lựa chọn giao diện. Lựa chọn này có thể mất khi tải lại trang.";
+      themeWarning.hidden = false;
+    }
+  });
+
+  // Follow system changes only until the user explicitly selects a theme.
+  if (systemTheme) {
+    const onSystemThemeChange = () => {
+      if (themePreference === null) applyTheme();
+    };
+    if (typeof systemTheme.addEventListener === "function") {
+      systemTheme.addEventListener("change", onSystemThemeChange);
+    } else if (typeof systemTheme.addListener === "function") {
+      systemTheme.addListener(onSystemThemeChange);
+    }
+  }
+  applyTheme();
+
   const STORAGE_KEY = "study-tasks.v1";
   const form = document.getElementById("task-form");
   const nameInput = document.getElementById("task-name");
