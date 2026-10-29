@@ -10,6 +10,8 @@
 
 Tích ô cạnh công việc để đổi trạng thái, nhấn **Xóa** để xóa ngay. Ba nút lọc giúp xem tất cả, chưa hoàn thành hoặc đã hoàn thành. Công việc mới xuất hiện đầu danh sách và tự chuyển bộ lọc về **Tất cả**.
 
+Nút **Giao diện tối** ở đầu trang bật/tắt chế độ tối. Khi nút được bật, trang dùng giao diện tối; nhấn lại để chuyển sang sáng. Khi chưa có lựa chọn đã lưu, ứng dụng theo giao diện hệ điều hành và cập nhật nếu hệ điều hành đổi sáng/tối trong lúc trang đang mở. Sau khi bạn tự chọn, ứng dụng ưu tiên lựa chọn đó, kể cả khi tải lại trang.
+
 ## Các file
 
 | File | Vai trò |
@@ -25,6 +27,7 @@ Tích ô cạnh công việc để đổi trạng thái, nhấn **Xóa** để x
 - Cả tên công việc và môn học đều bắt buộc; khoảng trắng đầu/cuối được loại bỏ. Tên tối đa 200 ký tự, môn học tối đa 80 ký tự.
 - Nội dung nhập được gán qua `textContent`, không chèn thành HTML và không thực thi mã.
 - Dữ liệu được lưu tại khóa `study-tasks.v1` trong localStorage của trình duyệt. Không gửi dữ liệu ra ngoài và không đồng bộ giữa thiết bị/trình duyệt.
+- Lựa chọn giao diện lưu riêng tại `study-tasks.theme`, có giá trị `light` hoặc `dark`, không ghi đè dữ liệu công việc. Nếu không lưu được, trang vẫn đổi giao diện và hiện thông báo. Giá trị không hợp lệ được xem như chưa có lựa chọn. Để trở lại tự động theo hệ điều hành, xóa riêng khóa `study-tasks.theme` trong DevTools rồi tải lại trang.
 - Ứng dụng thông báo nếu không đọc hoặc ghi được dữ liệu; khi ghi thất bại, vẫn thao tác được trong phiên đang mở nhưng thay đổi có thể mất khi tải lại.
 - Dữ liệu đã lưu sai cấu trúc được bỏ qua kèm thông báo. Dữ liệu mới được ghi khi bạn thêm, xóa hoặc đổi trạng thái công việc.
 - Chính sách localStorage với URL `file://` có thể khác nhau giữa trình duyệt. Hãy dùng cùng trình duyệt và giữ nguyên vị trí file; di chuyển thư mục, xóa dữ liệu trình duyệt hoặc dùng chế độ riêng tư có thể làm dữ liệu không còn. Nếu trình duyệt chặn lưu trữ cho file cục bộ, thử trình duyệt khác cho phép tính năng này.
@@ -39,3 +42,12 @@ Tích ô cạnh công việc để đổi trạng thái, nhấn **Xóa** để x
 6. Nhập `<img src=x onerror=alert(1)>` hoặc `<script>alert(1)</script>` làm tên và môn học: chỉ thấy văn bản, không có ảnh hoặc hộp thoại bật lên.
 7. Kiểm tra ở cửa sổ laptop và màn hình điện thoại (320–390 px): không tràn ngang, tên dài tự xuống dòng, nút dễ bấm. Dùng Tab, Enter và Space để thao tác bằng bàn phím.
 8. Nếu cần kiểm tra lỗi lưu trữ, chặn quyền lưu trữ trong trình duyệt rồi thử thêm công việc: ứng dụng phải cảnh báo thay vì ngừng hoạt động. Thử trên hồ sơ trình duyệt riêng để tránh ảnh hưởng dữ liệu đang dùng.
+
+## Tự kiểm tra giao diện sáng/tối
+
+1. Mở DevTools → Application/Storage → Local Storage, xóa riêng khóa `study-tasks.theme` nếu có, rồi tải lại trang. Giữ nguyên khóa `study-tasks.v1` để không mất công việc.
+2. Khi chưa có lựa chọn, thử giao diện hệ điều hành sáng và tối (hoặc giả lập `prefers-color-scheme` trong DevTools → Rendering). Trang phải theo đúng giao diện và cập nhật ngay khi thiết lập hệ thống thay đổi.
+3. Nhấn **Giao diện tối** để đổi sáng/tối. Tải lại: lựa chọn vẫn giữ nguyên; đổi giao diện hệ điều hành lúc này không được ghi đè lựa chọn của bạn.
+4. Ở cả hai giao diện, thêm việc, tích/bỏ tích, lọc và xóa; tải lại để kiểm tra dữ liệu. Đổi giao diện khi đang nhập biểu mẫu hoặc đang lọc: nội dung đang nhập và bộ lọc phải giữ nguyên.
+5. Kiểm tra chữ, ô nhập, placeholder, công việc hoàn thành, bộ lọc đang chọn, danh sách trống và thông báo lỗi đều dễ đọc. Kiểm tra ở màn hình điện thoại và dùng Tab rồi Enter/Space trên nút đổi giao diện.
+6. Trên hồ sơ thử nghiệm có chặn localStorage, nút vẫn đổi được giao diện và cảnh báo không lưu được; các chức năng công việc vẫn thao tác được trong phiên đang mở.
