@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#6552c7">
+  <meta name="description" content="Study Tasks — quản lý công việc học tập đơn giản, lưu ngay trên trình duyệt của bạn.">
+  <title>Study Tasks — Việc học mỗi ngày</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <main class="app">
+    <header class="page-header">
+      <div class="brand-mark" aria-hidden="true">✓</div>
+      <div>
+        <p class="eyebrow">VIỆC HỌC MỖI NGÀY</p>
+        <h1>Study Tasks<span aria-hidden="true">.</span></h1>
+      </div>
+    </header>
+    <p class="intro">Từng việc nhỏ, thêm một bước tiến.</p>
+
+    <section class="overview" aria-label="Tiến độ học tập">
+      <div>
+        <p class="overview-label">Hôm nay, cùng tập trung nhé!</p>
+        <p id="progress-text" class="progress-text">Bạn chưa có công việc nào.</p>
+      </div>
+      <span id="progress-count" class="progress-count">0 / 0</span>
+      <progress id="task-progress" max="1" value="0" aria-label="Tiến độ hoàn thành">0%</progress>
+    </section>
+
+    <section class="panel" aria-labelledby="add-heading">
+      <h2 id="add-heading">Thêm việc cần học</h2>
+      <form id="task-form" novalidate>
+        <div class="form-fields">
+          <div class="field task-field">
+            <label for="task-name">Tên công việc</label>
+            <input id="task-name" name="taskName" type="text" placeholder="Ví dụ: Ôn tập chương 3" maxlength="200" required aria-describedby="form-error">
+          </div>
+          <div class="field subject-field">
+            <label for="task-subject">Môn học</label>
+            <input id="task-subject" name="subject" type="text" placeholder="Ví dụ: Toán" maxlength="80" required aria-describedby="form-error">
+          </div>
+          <button class="add-button" type="submit"><span aria-hidden="true">＋</span> Thêm công việc</button>
+        </div>
+        <p id="form-error" class="form-error" role="alert" hidden></p>
+      </form>
+    </section>
+
+    <section class="panel list-panel" aria-labelledby="list-heading">
+      <div class="list-heading">
+        <h2 id="list-heading">Danh sách công việc</h2>
+        <span id="total-count" class="total-count">0 công việc</span>
+      </div>
+      <div class="filters" role="group" aria-label="Lọc công việc">
+        <button type="button" class="filter-button" data-filter="all" aria-pressed="true">Tất cả <span id="count-all">0</span></button>
+        <button type="button" class="filter-button" data-filter="pending" aria-pressed="false">Chưa hoàn thành <span id="count-pending">0</span></button>
+        <button type="button" class="filter-button" data-filter="completed" aria-pressed="false">Đã hoàn thành <span id="count-completed">0</span></button>
+      </div>
+      <ul id="task-list" class="task-list" aria-label="Công việc học tập"></ul>
+      <div id="empty-state" class="empty-state">
+        <span class="empty-icon" aria-hidden="true">✓</span>
+        <h3 id="empty-title">Bắt đầu từ một việc nhỏ</h3>
+        <p id="empty-description">Thêm công việc đầu tiên để lên kế hoạch học tập của bạn.</p>
+      </div>
+      <p id="result-summary" class="sr-only" role="status" aria-live="polite" aria-atomic="true"></p>
+    </section>
+
+    <p id="storage-warning" class="storage-warning" role="alert" hidden></p>
+    <footer>Dữ liệu lưu trên trình duyệt này <span aria-hidden="true">·</span> Học theo nhịp của bạn</footer>
+    <noscript><p class="storage-warning">Vui lòng bật JavaScript để sử dụng Study Tasks.</p></noscript>
+  </main>
+</body>
+</html>
